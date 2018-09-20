@@ -7,6 +7,8 @@ sys.path.append(os.path.dirname(sys.path[0]))
 from utils import get_img_data
 from PIL import Image
 
+all_theta = np.matrix(np.loadtxt('yzm_scipy/theta.dat'))
+
 
 def sigmoid(z):
     g = 1.0/(1.0+np.exp(-z))
@@ -23,10 +25,10 @@ def predictOneVsAll(all_theta, X):
     return Accuracy, p
 
 
-def verify():
+def verify(file_name):
     # 加载图片
-    img = Image.open('img/CheckCode.gif').convert("L")
-    all_theta = np.matrix(np.loadtxt('yzm_scipy/theta.dat'))
+    img = Image.open(file_name).convert("L")
+
     X = np.matrix(get_img_data(img))
     acc, pred = predictOneVsAll(all_theta, X)
     answers = map(chr, map(lambda x: x + 48 if x <= 9 else x + 87, pred))
@@ -34,4 +36,4 @@ def verify():
 
 
 if __name__ == "__main__":
-    print verify()
+    print verify('img/CheckCode.gif')

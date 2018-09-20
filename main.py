@@ -5,6 +5,7 @@ from PIL import Image
 from utils import denoise_img, str_turn_num
 
 folder = 'zfxfzb-code-data/img/'
+# imgs_folder = folder+'zfxfzb_code/'
 imgs_folder = folder+'train_img/'
 single_img_name = folder + 'single_imgs/%s_%s.png'
 
