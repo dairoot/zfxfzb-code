@@ -1,0 +1,4 @@
+*.pyc
+data.dat
+theta.dat
+knn.pkl
