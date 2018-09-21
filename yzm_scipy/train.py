@@ -64,7 +64,7 @@ def oneVsAll(X, y, num_labels, the_lambda):
 
 def train():
     '''开始训练'''
-    num_labels = 34
+    num_labels = 36
     the_lambda = 0.1
     data = np.matrix(np.loadtxt('data.dat'))
     y = data[:, 336]
