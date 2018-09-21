@@ -3,9 +3,6 @@
 # coding: utf-8
 import numpy as np
 from scipy.optimize import fmin_bfgs
-import sys
-import os
-sys.path.append(os.path.dirname(sys.path[0]))
 
 
 def sigmoid(z):
@@ -62,7 +59,7 @@ def train():
     X = data[:, :336]
     all_theta = oneVsAll(X, y, num_labels, the_lambda)
     ''' 生成训练后的特征文本 '''
-    np.savetxt('yzm_scipy/theta.dat', all_theta)
+    np.savetxt('training_model/scipy_model/theta.dat', all_theta)
 
 
 train()

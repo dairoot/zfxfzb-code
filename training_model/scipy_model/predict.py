@@ -3,11 +3,12 @@
 import numpy as np
 import sys
 import os
-sys.path.append(os.path.dirname(sys.path[0]))
+
+sys.path.append(os.getcwd())
 from utils import get_img_data, num_turn_chr
 from PIL import Image
 
-all_theta = np.matrix(np.loadtxt('yzm_scipy/theta.dat'))
+all_theta = np.matrix(np.loadtxt('training_model/scipy_model/theta.dat'))
 
 
 def sigmoid(z):

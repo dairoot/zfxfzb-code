@@ -5,10 +5,10 @@ from PIL import Image
 
 import sys
 import os
-sys.path.append(os.path.dirname(sys.path[0]))
+sys.path.append(os.getcwd())
 from utils import get_img_data
 
-knn = joblib.load('yzm_sklearn/knn.pkl')
+knn = joblib.load('training_model/sklearn_model/knn.pkl')
 
 
 def verify(file_name):

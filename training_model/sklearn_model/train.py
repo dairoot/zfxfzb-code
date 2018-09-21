@@ -7,7 +7,7 @@ import numpy as np
 
 import sys
 import os
-sys.path.append(os.path.dirname(sys.path[0]))
+sys.path.append(os.getcwd())
 from utils import num_turn_chr
 
 # 读取训练样本数据
@@ -20,7 +20,7 @@ knn = KNeighborsClassifier(n_neighbors=1)
 knn.fit(X_train, y_train)
 
 # 导出训练函数
-joblib.dump(knn, 'yzm_sklearn/knn.pkl')
+joblib.dump(knn, 'training_model/sklearn_model/knn.pkl')
 
 
 if __name__ == "__main__":

@@ -3,8 +3,8 @@
 import os
 import random
 
-from yzm_scipy.predict import verify as scipy_verify
-from yzm_sklearn.predict import verify as sklearn_verify
+from training_model.scipy_model.predict import verify as scipy_verify
+from training_model.sklearn_model.predict import verify as sklearn_verify
 
 folder = 'zfxfzb-code-data/img/'
 imgs_folder = folder+'test_img/'
