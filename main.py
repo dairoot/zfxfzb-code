@@ -14,7 +14,7 @@ class ProcePhoto():
         self.img_name = img_name.split('.')[0]
         self.data_file_handle = data_file_handle
         img = Image.open(imgs_folder+img_name).convert("L")
-        self.im = img
+        self.im = denoise_img(img)
 
     def split_img(self):
         ''' 分割图片'''

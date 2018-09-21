@@ -27,6 +27,7 @@ def denoise_img(img):
 
 
 def get_img_data(img):
+    img = denoise_img(img)
     x_size, y_size = img.size
     y_size -= 5
     piece = (x_size-22) / 8
