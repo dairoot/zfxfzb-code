@@ -7,19 +7,10 @@ import sys
 import os
 sys.path.append(os.path.dirname(sys.path[0]))
 
+
 def sigmoid(z):
     g = 1.0/(1.0+np.exp(-z))
     return g
-
-
-def predictOneVsAll(all_theta, X):
-    m = X.shape[0]
-    X = np.hstack((np.ones((m, 1)), X))
-    real_all_theta = all_theta.transpose()
-    all_predict = sigmoid(np.dot(X, real_all_theta))
-    acc = all_predict.max(1)
-    p = np.argmax(all_predict, axis=1)
-    return acc, p
 
 
 def lrGD(theta, *args):

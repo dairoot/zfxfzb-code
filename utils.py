@@ -6,15 +6,13 @@ import numpy as np
 def str_turn_num(c):
     if c in ['9', 'o', 'z']:
         print '存在错误数据'
-    return (lambda x: x - 87 if x >= 97 else x - 48)(ord(c))
+    return ord(c) - 87 if ord(c) >= 97 else ord(c) - 48
 
 
-def num_turn_chr(c):
-    if c < 10:
-        k = chr(c + 48)
-    else:
-        k = chr(c + 87)
-    return k
+def num_turn_chr(n):
+    if n in [9, 24, 35]:
+        print '存在错误数据'
+    return chr(n + 48) if n < 10 else chr(n + 87)
 
 
 def denoise_img(img):

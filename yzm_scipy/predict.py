@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import os
 sys.path.append(os.path.dirname(sys.path[0]))
-from utils import get_img_data
+from utils import get_img_data, num_turn_chr
 from PIL import Image
 
 all_theta = np.matrix(np.loadtxt('yzm_scipy/theta.dat'))
@@ -31,7 +31,7 @@ def verify(file_name):
 
     X = np.matrix(get_img_data(img))
     acc, pred = predictOneVsAll(all_theta, X)
-    answers = map(chr, map(lambda x: x + 48 if x <= 9 else x + 87, pred))
+    answers = map(lambda x: num_turn_chr(x), pred)
     return ''.join(answers)
 
 
