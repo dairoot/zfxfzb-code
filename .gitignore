@@ -1,4 +1,3 @@
 *.pyc
-data.dat
-theta.dat
+*.dat
 knn.pkl

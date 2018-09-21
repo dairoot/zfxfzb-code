@@ -5,8 +5,7 @@ from PIL import Image
 from utils import denoise_img, str_turn_num
 
 folder = 'zfxfzb-code-data/img/'
-# imgs_folder = folder+'zfxfzb_code/'
-imgs_folder = folder+'train_img/'
+imgs_folder = folder+'zfxfzb_code/'
 single_img_name = folder + 'single_imgs/%s_%s.png'
 
 
@@ -15,8 +14,7 @@ class ProcePhoto():
         self.img_name = img_name.split('.')[0]
         self.data_file_handle = data_file_handle
         img = Image.open(imgs_folder+img_name).convert("L")
-        # 降噪
-        self.im = denoise_img(img)
+        self.im = img
 
     def split_img(self):
         ''' 分割图片'''
