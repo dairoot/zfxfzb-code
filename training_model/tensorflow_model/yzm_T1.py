@@ -1,19 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+import tensorflow as tf
 import sys
 import os
-sys.path.append(os.path.dirname(sys.path[0]))
-import tensorflow as tf
-import numpy as np
-import random
-from utils import LoadData
+sys.path.append(os.getcwd())
+from utils import TrainData
 
 
-zfdata = LoadData()
+zfdata = TrainData()
 
-
-import tensorflow as tf
 x = tf.placeholder("float", [None, zfdata.in_size])
 W = tf.Variable(tf.zeros([zfdata.in_size, zfdata.out_size]))
 b = tf.Variable(tf.zeros([zfdata.out_size]))
@@ -25,8 +22,8 @@ init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 
-for i in range(100):
-    batch_xs, batch_ys = zfdata.next_batch(50)
+for i in range(200):
+    batch_xs, batch_ys = zfdata.next_batch(100)
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
 

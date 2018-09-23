@@ -3,14 +3,12 @@
 
 import sys
 import os
-sys.path.append(os.path.dirname(sys.path[0]))
 import tensorflow as tf
-import numpy as np
-import random
-from utils import LoadData
+sys.path.append(os.getcwd())
+from utils import TrainData
 
 
-zfdata = LoadData()
+zfdata = TrainData()
 
 
 def add_layer(inputs, in_size, out_size, activation_function=None,):
@@ -52,7 +50,7 @@ init = tf.global_variables_initializer()
 sess.run(init)
 
 
-for i in range(100):
+for i in range(400):
     batch_xs, batch_ys = zfdata.next_batch(50)
     sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys})
     if i % 50 == 0:

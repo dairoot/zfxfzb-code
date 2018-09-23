@@ -48,22 +48,21 @@ def get_img_data(img):
     return X
 
 
-class LoadData():
+class TrainData(object):
     in_size = 336
     out_size = 36
-    cursor = 0
 
     def __init__(self, file="data.dat"):
+        self.cursor = 0
         data = np.loadtxt(file)
-        print(len(data))
         y = data[:, self.in_size].reshape((-1, 1))
         self.g_y = np.rint(y == range(self.out_size))
         self.g_X = data[:, :self.in_size]
 
-    def next_batch(self, batch):
-        X_train = self.g_X[self.cursor:self.cursor+batch]
-        y_train = self.g_y[self.cursor:self.cursor+batch]
-        self.cursor += batch
+    def next_batch(self, amount):
+        X_train = self.g_X[self.cursor:self.cursor+amount]
+        y_train = self.g_y[self.cursor:self.cursor+amount]
+        self.cursor += amount
         return X_train, y_train
 
     @property
