@@ -26,4 +26,4 @@ joblib.dump(knn, 'training_model/sklearn_model/knn.pkl')
 if __name__ == "__main__":
     # 精度统计
     score = cross_val_score(knn, X_train, y_train, cv=5, scoring='accuracy')
-    print score.mean()
+    print (score.mean())

@@ -15,8 +15,8 @@ def verify(file_name):
     # 加载图片
     img = Image.open(file_name).convert("L")
     # 识别验证码
-    return ''.join(knn.predict(get_img_data(img)))
+    return knn.predict(get_img_data(img)).tostring()
 
 
 if __name__ == "__main__":
-    print verify('img/CheckCode.gif')
+    print(verify('img/CheckCode.gif'))

@@ -5,13 +5,13 @@ import numpy as np
 
 def str_turn_num(c):
     if c in ['9', 'o', 'z']:
-        print '存在错误数据'
+        print('存在错误数据')
     return ord(c) - 87 if ord(c) >= 97 else ord(c) - 48
 
 
 def num_turn_chr(n):
     if n in [9, 24, 35]:
-        print '存在错误数据'
+        print('存在错误数据')
     return chr(n + 48) if n < 10 else chr(n + 87)
 
 
@@ -30,7 +30,7 @@ def get_img_data(img):
     img = denoise_img(img)
     x_size, y_size = img.size
     y_size -= 5
-    piece = (x_size-22) / 8
+    piece = (x_size-22) // 8
     centers = [4+piece*(2*i+1) for i in range(4)]
     X = []
     for i, center in enumerate(centers):
