@@ -5,11 +5,10 @@
 import sys
 import os
 sys.path.append(os.getcwd())
-from utils import TrainData, TestData
+from utils import TrainData
 
 
 train_data = TrainData()
-test_data = TestData()
 
 import tensorflow as tf
 

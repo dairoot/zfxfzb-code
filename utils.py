@@ -54,16 +54,18 @@ class Data(object):
 
     def __init__(self, file="data.dat"):
         self.cursor = 0
-        self.data = np.loadtxt(file)
+        data = np.loadtxt(file)
+        self.data_amount = len(data)
 
-        y = self.data[:, self.in_size].reshape((-1, 1))
+        y = data[:, self.in_size].reshape((-1, 1))
         self.g_y = np.rint(y == range(self.out_size))
-        self.g_X = self.data[:, :self.in_size]
+        self.g_X = data[:, :self.in_size]
 
     def next_batch(self, amount):
         X_train = self.g_X[self.cursor:self.cursor+amount]
         y_train = self.g_y[self.cursor:self.cursor+amount]
         self.cursor += amount
+        # assert self.cursor <= self.data_amount
         return X_train, y_train
 
 
@@ -72,7 +74,7 @@ class TrainData(Data):
 
     def __init__(self, file="data.dat"):
         super(TrainData, self).__init__(file)
-        print('Train data size: %d' % len(self.data))
+        print('Train data size: %d' % self.data_amount)
 
     @property
     def test_xs(self):
@@ -86,4 +88,4 @@ class TrainData(Data):
 class TestData(Data):
     def __init__(self, file="test.dat"):
         super(TestData, self).__init__(file)
-        print('Test data size: %d' % len(self.data))
+        print('Test data size: %d' % self.data_amount)
