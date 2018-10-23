@@ -5,10 +5,11 @@ import sys
 import os
 import tensorflow as tf
 sys.path.append(os.getcwd())
-from utils import TrainData
+from utils import TrainData, TestData
 
 
-zfdata = TrainData()
+train_data = TrainData()
+test_data = TestData()
 
 
 def add_layer(inputs, in_size, out_size, activation_function=None,):
@@ -33,11 +34,11 @@ def compute_accuracy(v_xs, v_ys):
 
 
 # define placeholder for inputs to network
-xs = tf.placeholder(tf.float32, [None, zfdata.in_size])
-ys = tf.placeholder(tf.float32, [None, zfdata.out_size])
+xs = tf.placeholder(tf.float32, [None, train_data.in_size])
+ys = tf.placeholder(tf.float32, [None, train_data.out_size])
 
 # add output layer
-prediction = add_layer(xs, zfdata.in_size, zfdata.out_size,  activation_function=tf.nn.softmax)
+prediction = add_layer(xs, train_data.in_size, train_data.out_size,  activation_function=tf.nn.softmax)
 
 # the error between prediction and real data
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction),
@@ -51,7 +52,8 @@ sess.run(init)
 
 
 for i in range(400):
-    batch_xs, batch_ys = zfdata.next_batch(50)
-    sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys})
+    train_xs, train_ys = train_data.next_batch(100)
+    test_xs, test_ys = test_data.next_batch(100)
+    sess.run(train_step, feed_dict={xs: train_xs, ys: train_ys})
     if i % 50 == 0:
-        print(compute_accuracy(zfdata.test_xs, zfdata.test_ys))
+        print(compute_accuracy(test_xs, test_ys))

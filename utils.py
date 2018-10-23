@@ -48,22 +48,31 @@ def get_img_data(img):
     return X
 
 
-class TrainData(object):
+class Data(object):
     in_size = 336
     out_size = 36
 
     def __init__(self, file="data.dat"):
         self.cursor = 0
-        data = np.loadtxt(file)
-        y = data[:, self.in_size].reshape((-1, 1))
+        self.data = np.loadtxt(file)
+
+        y = self.data[:, self.in_size].reshape((-1, 1))
         self.g_y = np.rint(y == range(self.out_size))
-        self.g_X = data[:, :self.in_size]
+        self.g_X = self.data[:, :self.in_size]
 
     def next_batch(self, amount):
         X_train = self.g_X[self.cursor:self.cursor+amount]
         y_train = self.g_y[self.cursor:self.cursor+amount]
         self.cursor += amount
         return X_train, y_train
+
+
+class TrainData(Data):
+    """docstring for TrainData"""
+
+    def __init__(self, file="data.dat"):
+        super(TrainData, self).__init__(file)
+        print('Train data size: %d' % len(self.data))
 
     @property
     def test_xs(self):
@@ -72,3 +81,9 @@ class TrainData(object):
     @property
     def test_ys(self):
         return self.g_y[-100:]
+
+
+class TestData(Data):
+    def __init__(self, file="test.dat"):
+        super(TestData, self).__init__(file)
+        print('Test data size: %d' % len(self.data))
