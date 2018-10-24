@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import ray
 from PIL import Image
 from utils import denoise_img, str_turn_num
 
 folder = 'zfxfzb-code-data/img/'
 
 
-class ProcePhoto():
+class ProcePhoto(object):
     def __init__(self, img_path):
         self.img_name = img_path.split('/')[-1][:4]
         img = Image.open(img_path).convert("L")
@@ -31,21 +32,27 @@ class ProcePhoto():
                     data_str += '1 ' if pixel == 255 else '0 '
             data_str = '%s%s\n' % (data_str, str_turn_num(self.img_name[i]))
         return data_str
+    
+
+@ray.remote
+def run(img_path):
+    im = ProcePhoto(img_path)
+    data = im.photo_to_text()
+    return data
+
 
 if __name__ == "__main__":
+    ray.init()
     dat = 'data.dat'
     imgs_folder = folder+'zfxfzb_code/'
     if not os.path.exists(imgs_folder):
         print ("请运行样本生成程序\nUser: ./checkcode.exe")
     else:
         img_files = os.listdir(imgs_folder)
-        if os.path.exists(dat):
-            os.remove(dat)
-        with open(dat, 'a') as data_file:
+        with open(dat, 'w') as data_file:
+            task = []
             for img_name in img_files:
                 img_path = imgs_folder+img_name
-                im = ProcePhoto(img_path)
-                data = im.photo_to_text()
-                data_file.write(data)
-
-
+                task.append(run.remote(img_path))
+            data = ray.get(task)
+            data_file.write(''.join(data))

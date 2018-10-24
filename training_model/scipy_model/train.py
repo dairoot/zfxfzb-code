@@ -39,9 +39,9 @@ def oneVsAll(X, y, num_labels, the_lambda):
     m, n = np.shape(X)
     all_theta = np.matrix(np.zeros((num_labels, n+1)))
     X = np.hstack((np.ones((m, 1)), X))
+    initial_theta = np.zeros((n+1, 1))
     for c in range(num_labels):
         print ('Training for %d/%d' % (c+1, num_labels))
-        initial_theta = np.zeros((n+1, 1))
         args = (X, (y == c), the_lambda)
         theta = fmin_bfgs(lrCostFunction, initial_theta,
                           fprime=lrGD, args=args, maxiter=50)

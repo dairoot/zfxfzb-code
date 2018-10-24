@@ -1,3 +1,6 @@
 *.pyc
-*.dat
+__pycache__
+data.dat
 knn.pkl
+theta.dat
+.DS_Store
